@@ -405,8 +405,8 @@
         <label>📈 Crescimento semanal (decimal) <input id="weekly_growth" type="number" step="0.01" value="0.20"></label>
         <label>🛡️ Proteção pós-liberação (dias) <input id="t_after" type="number" step="1" value="11"></label>
         <label>⏭️ Janela SKIP (dias) <input id="skip_days" type="number" step="1" value="12"></label>
-        <label>📊 Limite por envio (kits de 2 pares) <input id="limit_units" type="number" step="1" value="2007"></label>
-        <label>📦 Múltiplo do pack (kits) <input id="pack" type="number" step="1" value="27"></label>
+        <label>📊 Limite por envio (kits de 2 pares) <input id="limit_units" type="number" step="1" value="770"></label>
+        <label>📦 Múltiplo do pack (kits) <input id="pack" type="number" step="1" value="22"></label>
         <label>🔒 SS % da semana base (decimal) <input id="ss_factor" type="number" step="0.01" value="0.50"></label>
         <label>🔒 SS mínimo (kits) <input id="ss_min" type="number" step="1" value="2"></label>
         <label>⭐ Peso prioridade 39–42 <input id="w_central" type="number" step="0.01" value="1.15"></label>
@@ -479,9 +479,9 @@
   </div>
 
 <script>
-const sizes = [35,36,37,38,39,40,41,42,43,44,45];
+const sizes = [39,40,41,42,43,44];
 // Dados ajustados para kits de 2 pares (aproximadamente metade dos valores originais)
-let last30 = {35:190,36:191,37:324,38:469,39:540,40:1067,41:1260,42:1106,43:428,44:306,45:88};
+let last30 = {39:540,40:1067,41:1260,42:1106,43:428,44:306};
 
 function el(id){return document.getElementById(id);}
 function fmtISO(d){ return d.toISOString().split("T")[0]; }
