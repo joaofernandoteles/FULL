@@ -1,315 +1,362 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Planner Full Palmilhas — Datas & 2 Lotes Anteriores</title>
+<title>Planner Full Palmilhas — Bem-vindo</title>
 <style>
-  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 20px; }
-  h1 { font-size: 20px; margin: 0 0 8px; }
-  h2 { font-size: 16px; margin: 18px 0 6px; }
-  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  .card { border: 1px solid #ddd; border-radius: 10px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
-  label { display: block; font-size: 12px; color: #333; margin-bottom: 6px; }
-  input[type="number"], input[type="date"] { width: 90%; padding: 6px 8px; border: 1px solid #cfcfcf; border-radius: 6px; }
-  table { border-collapse: collapse; width: 100%; }
-  th, td { border: 1px solid #e6e6e6; padding: 6px 8px; font-size: 12px; text-align: right; }
-  th { background: #f6f6f6; text-align: center; }
-  td:first-child, th:first-child { text-align: center; }
-  .btn { display: inline-block; padding: 8px 12px; border-radius: 8px; border: 1px solid #222; background: #111; color: #fff; cursor: pointer; font-weight: 600; }
-  .btn.secondary { background: #fff; color: #111; }
-  .muted { color: #666; font-size: 12px; }
-  .pill { display: inline-block; font-size: 11px; background: #eef6ff; border: 1px solid #cfe3ff; color: #0a4; padding: 2px 6px; border-radius: 999px; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  * {
+    box-sizing: border-box;
+  }
+  
+  body { 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #2d3748;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 32px;
+    padding: 48px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+  }
+  
+  .logo {
+    font-size: 64px;
+    margin-bottom: 24px;
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  h1 { 
+    font-size: 48px; 
+    margin: 0 0 16px; 
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .subtitle {
+    font-size: 20px;
+    color: #718096;
+    margin-bottom: 48px;
+    font-weight: 400;
+  }
+  
+  .welcome-text {
+    font-size: 24px;
+    color: #4a5568;
+    margin-bottom: 48px;
+    font-weight: 600;
+  }
+  
+  .options-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  
+  .option-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .option-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    border-radius: 24px 24px 0 0;
+  }
+  
+  .option-card.single::before {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+  }
+  
+  .option-card.kit::before {
+    background: linear-gradient(90deg, #f093fb, #f5576c);
+  }
+  
+  .option-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  }
+  
+  .option-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  
+  .option-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #2d3748;
+  }
+  
+  .option-description {
+    font-size: 16px;
+    color: #718096;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  
+  .option-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .option-card.single .option-badge {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+  }
+  
+  .option-card.kit .option-badge {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: white;
+  }
+  
+  .option-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+  
+  .option-features li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #4a5568;
+  }
+  
+  .option-features li::before {
+    content: '✓';
+    color: #48bb78;
+    font-weight: bold;
+  }
+  
+  .footer {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid #e2e8f0;
+    color: #718096;
+    font-size: 14px;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  
+  .footer-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-link:hover {
+    color: #764ba2;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      margin: 10px;
+      padding: 32px 24px;
+      border-radius: 24px;
+    }
+    
+    .logo {
+      font-size: 48px;
+    }
+    
+    h1 {
+      font-size: 32px;
+    }
+    
+    .subtitle {
+      font-size: 18px;
+    }
+    
+    .welcome-text {
+      font-size: 20px;
+    }
+    
+    .options-container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    .option-card {
+      padding: 24px;
+    }
+    
+    .option-icon {
+      font-size: 40px;
+    }
+    
+    .option-title {
+      font-size: 20px;
+    }
+  }
+  
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+    50% {
+      box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
+    }
+    100% {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+  
+  @keyframes floating {
+    0% { transform: translate(0, 0px); }
+    50% { transform: translate(0, -10px); }
+    100% { transform: translate(0, 0px); }
+  }
 </style>
 </head>
 <body>
-  <h1>Planner Full Palmilhas — <span class="muted">datas reais + 2 lotes anteriores</span></h1>
-  <p class="muted">Defina as datas de despacho e os prazos de trânsito/check-in. O planner converte para “dias até liberar” automaticamente.</p>
-
-  <div class="grid">
-    <div class="card">
-      <h2>Calendário & Prazos</h2>
-      <label>Hoje <input id="today_date" type="date"></label>
-      <div class="row">
-        <label>Despacho Lote Semana -2 <input id="ship_prev2" type="date"></label>
-        <label>Despacho Lote Semana -1 <input id="ship_prev1" type="date"></label>
+  <div class="container">
+    <div class="logo">🦶</div>
+    <h1>Planner Full Palmilhas</h1>
+    <p class="subtitle">Sistema de Planejamento Inteligente</p>
+    
+    <div class="welcome-text floating">
+      Bem-vindo! Vamos planejar seu Full? 🚀
+    </div>
+    
+    <div class="options-container">
+      <a href="planner_melhorado.html" class="option-card single pulse">
+        <div class="option-badge">
+          👤 Opção Individual
+        </div>
+        <span class="option-icon">🦶</span>
+        <div class="option-title">Full 1 Palmilha</div>
+        <div class="option-description">
+          Planejamento completo para palmilhas individuais com análise detalhada de demanda e estoque.
+        </div>
+        <ul class="option-features">
+          <li>Análise por numeração</li>
+          <li>Cálculo de demanda semanal</li>
+          <li>Sugestão de envio otimizada</li>
+          <li>Controle de estoque avançado</li>
+        </ul>
+      </a>
+      
+      <a href="planner_kit_2_pares.html" class="option-card kit">
+        <div class="option-badge">
+          👥 Kit Duplo
+        </div>
+        <span class="option-icon">👥</span>
+        <div class="option-title">Full 2 Palmilhas</div>
+        <div class="option-description">
+          Planejamento especializado para kits de 2 pares com parâmetros ajustados para vendas em conjunto.
+        </div>
+        <ul class="option-features">
+          <li>Otimizado para kits duplos</li>
+          <li>Parâmetros ajustados</li>
+          <li>Análise de cobertura específica</li>
+          <li>Relatórios personalizados</li>
+        </ul>
+      </a>
+    </div>
+    
+    <div class="footer">
+      <p>💡 Escolha a opção que melhor se adequa ao seu tipo de produto</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">📊 Relatórios</a>
+        <a href="#" class="footer-link">⚙️ Configurações</a>
+        <a href="#" class="footer-link">❓ Ajuda</a>
       </div>
-      <div class="row">
-        <label>Despacho Lote Atual (planejado) <input id="ship_curr" type="date"></label>
-        <label>Dias de trânsito (despacho→chegada) <input id="transit_days" type="number" step="1" value="1"></label>
-      </div>
-      <label>Dias de check-in até liberar (chegada→venda) <input id="checkin_days" type="number" step="1" value="3"></label>
-      <p class="muted">Ex.: se despacha 27/08, com trânsito 1 e check-in 3, libera em 31/08 (4 dias após despacho).</p>
-    </div>
-
-    <div class="card">
-      <h2>Parâmetros de Demanda/Estoque</h2>
-      <label>Crescimento semanal (decimal) <input id="weekly_growth" type="number" step="0.01" value="0.20"></label>
-      <label>Proteção pós-liberação (dias) <input id="t_after" type="number" step="1" value="11"></label>
-      <label>Janela SKIP (dias) <input id="skip_days" type="number" step="1" value="12"></label>
-      <label>Limite por envio (pares) <input id="limit_units" type="number" step="1" value="4015"></label>
-      <label>Múltiplo do pack (pares) <input id="pack" type="number" step="1" value="55"></label>
-      <label>SS % da semana base (decimal) <input id="ss_factor" type="number" step="0.01" value="0.50"></label>
-      <label>SS mínimo (pares) <input id="ss_min" type="number" step="1" value="3"></label>
-      <label>Peso prioridade 39–42 <input id="w_central" type="number" step="0.01" value="1.15"></label>
-      <label>Teto cobertura pós (semanas) <input id="max_cov_weeks" type="number" step="0.1" value="2.0"></label>
-    </div>
-
-    <div class="card">
-      <h2>Ações</h2>
-      <button class="btn" onclick="recalc()">Recalcular</button>
-      <button class="btn secondary" onclick="downloadCSV()">Baixar CSV</button>
-      <p id="dates_summary" class="muted"></p>
-      <p id="summary" class="muted"></p>
     </div>
   </div>
 
-  <h2>Inputs por Numeração</h2>
-  <div style="overflow:auto;">
-  <table id="inputsTable">
-    <thead>
-      <tr>
-        <th>Num</th>
-        <th>Vendas 30d</th>
-        <th>Estoque atual no Full</th>
-        <th>Lote Semana -2 (pares)</th>
-        <th>Lote Semana -1 (pares)</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  </div>
-
-  <h2>Sugestão de Envio</h2>
-  <div style="overflow:auto;">
-  <table id="outTable">
-    <thead>
-      <tr>
-        <th>Num</th>
-        <th>Need Efetivo</th>
-        <th>Cap Packs</th>
-        <th>Packs Sug.</th>
-        <th>Pares</th>
-        <th>Skip12d?</th>
-        <th>Cobertura pós (dias)</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-    <tfoot>
-      <tr>
-        <th colspan="2">Totais</th>
-        <th id="totCap"></th>
-        <th id="totPacks"></th>
-        <th id="totPairs"></th>
-        <th colspan="2">Limite: <span id="limitSpan"></span> / Restante: <span id="leftSpan"></span></th>
-      </tr>
-    </tfoot>
-  </table>
-  </div>
-
-<script>
-const sizes = [35,36,37,38,39,40,41,42,43,44,45];
-let last30 = {35:381,36:382,37:649,38:938,39:1081,40:2135,41:2521,42:2212,43:857,44:612,45:176};
-
-function el(id){return document.getElementById(id);}
-function fmtISO(d){ return d.toISOString().split("T")[0]; }
-function addDays(date,days){ const d=new Date(date); d.setDate(d.getDate()+days); return d; }
-function daysBetween(a,b){ const ms= (new Date(b)) - (new Date(a)); return Math.round(ms/86400000); }
-
-// Prefill default dates: today, +2d, +9d, +16d (como seu exemplo: 25/08, 27/08, 03/09, 10/09)
-(function initDates(){
-  const now = new Date(); now.setHours(0,0,0,0);
-  el("today_date").value = fmtISO(now);
-  el("ship_prev2").value = fmtISO(addDays(now,2));
-  el("ship_prev1").value = fmtISO(addDays(now,9));
-  el("ship_curr").value  = fmtISO(addDays(now,16));
-})();
-
-// Build input rows
-(function buildInputs(){
-  const tb = document.querySelector("#inputsTable tbody");
-  sizes.forEach(s=>{
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${s}</td>
-      <td><input type="number" step="1" value="${last30[s]}" data-k="v30" data-s="${s}" style="width:110px"></td>
-      <td><input type="number" step="1" value="0" data-k="stock" data-s="${s}" style="width:140px"></td>
-      <td><input type="number" step="1" value="0" data-k="prev2pairs" data-s="${s}" style="width:140px"></td>
-      <td><input type="number" step="1" value="0" data-k="prev1pairs" data-s="${s}" style="width:140px"></td>
-    `;
-    tb.appendChild(tr);
-  });
-})();
-
-function getInputs(){
-  const v = {};
-  sizes.forEach(s=>{
-    const row = {};
-    row.v30 = parseFloat(document.querySelector(`input[data-s="${s}"][data-k="v30"]`).value||"0");
-    row.stock = parseFloat(document.querySelector(`input[data-s="${s}"][data-k="stock"]`).value||"0");
-    row.prev2pairs = parseFloat(document.querySelector(`input[data-s="${s}"][data-k="prev2pairs"]`).value||"0");
-    row.prev1pairs = parseFloat(document.querySelector(`input[data-s="${s}"][data-k="prev1pairs"]`).value||"0");
-    v[s]=row;
-  });
-  return v;
-}
-
-function params(){
-  const transit = parseFloat(el("transit_days").value||"0");
-  const checkin = parseFloat(el("checkin_days").value||"0");
-  const today = el("today_date").value;
-  const rel_prev2 = daysBetween(today, el("ship_prev2").value) + transit + checkin;
-  const rel_prev1 = daysBetween(today, el("ship_prev1").value) + transit + checkin;
-  const rel_curr  = daysBetween(today, el("ship_curr").value)  + transit + checkin;
-  el("dates_summary").innerHTML = `Liberação estimada: Semana -2 em <b>${rel_prev2}</b>d, Semana -1 em <b>${rel_prev1}</b>d, Atual em <b>${rel_curr}</b>d.`;
-
-  return {
-    growth: parseFloat(el("weekly_growth").value||"0"),
-    dPrev2: Math.max(0, rel_prev2),
-    dPrev1: Math.max(0, rel_prev1),
-    dCurr:  Math.max(0, rel_curr),
-    tAfter: parseFloat(el("t_after").value||"0"),
-    skipDays: parseFloat(el("skip_days").value||"0"),
-    limit: parseFloat(el("limit_units").value||"0"),
-    pack: parseFloat(el("pack").value||"1"),
-    ssFactor: parseFloat(el("ss_factor").value||"0"),
-    ssMin: parseFloat(el("ss_min").value||"0"),
-    wCentral: parseFloat(el("w_central").value||"1"),
-    maxWeeks: parseFloat(el("max_cov_weeks").value||"2")
-  };
-}
-
-// Demand functions
-function baseWeek(v30){ return v30 * 7.0 / 30.0; }
-function cumDemand(baseW, g, days){
-  const fullWeeks = Math.floor(days/7);
-  const residualDays = days - fullWeeks*7;
-  let sumFull = 0;
-  if (g===0){ sumFull = baseW * fullWeeks; }
-  else {
-    sumFull = baseW * ((1 - Math.pow(1+g, fullWeeks)) / (1 - (1+g)));
-  }
-  const residual = (residualDays/7.0) * baseW * Math.pow(1+g, fullWeeks);
-  return sumFull + residual;
-}
-
-function recalc(){
-  const P = params();
-  const inp = getInputs();
-  const rows = [];
-  sizes.forEach(s=>{
-    const v = inp[s];
-    const b = baseWeek(v.v30);
-    const ss = Math.max(P.ssMin, P.ssFactor*b);
-
-    // 0 -> release -2
-    const cons0prev2 = cumDemand(b,P.growth,P.dPrev2);
-    const onPrev2Before = Math.max(v.stock - cons0prev2, 0);
-    const onPrev2After  = onPrev2Before + v.prev2pairs;
-
-    // -2 -> -1
-    const consPrev2Prev1 = cumDemand(b,P.growth,P.dPrev1) - cumDemand(b,P.growth,P.dPrev2);
-    const onPrev1Before = Math.max(onPrev2After - consPrev2Prev1, 0);
-    const onPrev1After  = onPrev1Before + v.prev1pairs;
-
-    // -1 -> current
-    const consPrev1Curr = cumDemand(b,P.growth,P.dCurr) - cumDemand(b,P.growth,P.dPrev1);
-    const onCurrBefore = Math.max(onPrev1After - consPrev1Curr, 0);
-
-    // janela SKIP a partir da liberação atual
-    const dem12 = cumDemand(b,P.growth,P.dCurr + P.skipDays) - cumDemand(b,P.growth,P.dCurr);
-    const skip = onCurrBefore >= dem12 ? 1 : 0;
-
-    // alvo pós liberação atual
-    const targetAfter = (cumDemand(b,P.growth,P.dCurr + P.tAfter) - cumDemand(b,P.growth,P.dCurr)) + ss;
-    const upperAfter  = (cumDemand(b,P.growth,P.dCurr + P.maxWeeks*7) - cumDemand(b,P.growth,P.dCurr)) + ss;
-    const needRaw = Math.max(0, targetAfter - onCurrBefore);
-    const needCapped = Math.min(needRaw, Math.max(0, upperAfter - onCurrBefore));
-    const needEff = skip ? 0 : needCapped;
-    const weight = (s===39||s===40||s===41||s===42) ? P.wCentral : 1.0;
-    const weekNext = b*Math.pow(1+P.growth, Math.floor(P.dCurr/7)+1);
-    rows.push({
-      size:s, v30:v.v30, b, ss, onCurrBefore, skip, needCapped, needEff, weight,
-      capPacks: Math.max(0, Math.floor(needCapped / P.pack)),
-      weekNext
+  <script>
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.option-card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+      
+      // Add click animation
+      cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          this.style.transform = 'translateY(-4px) scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+          }, 150);
+        });
+      });
     });
-  });
-
-  // Alocação
-  const totalDesire = rows.reduce((a,r)=>a + r.needEff * r.weight, 0);
-  let totalPacksAllowed = Math.floor(P.limit / P.pack);
-  let packs = new Map(rows.map(r=>[r.size,0]));
-  if (totalDesire>0 && totalPacksAllowed>0){
-    let ideals = rows.map(r=>{
-      const idealUnits = (r.needEff * r.weight / totalDesire) * P.limit;
-      let idealPacks = idealUnits / P.pack;
-      let base = Math.min(Math.floor(idealPacks), r.capPacks);
-      return {size:r.size, base, frac: idealPacks - Math.floor(idealPacks), cap:r.capPacks, weight:r.weight};
-    });
-    let used = ideals.reduce((a,o)=>a+o.base,0);
-    let leftover = Math.max(0, totalPacksAllowed - used);
-    ideals.sort((a,b)=> (b.frac - a.frac) || (b.weight - a.weight));
-    let i=0, guard=0;
-    while(leftover>0 && guard<10000){
-      let idx = i % ideals.length;
-      if (ideals[idx].base < ideals[idx].cap){
-        ideals[idx].base += 1;
-        leftover -= 1;
-      }
-      i++; guard++;
-      if (ideals.every(o=>o.base>=o.cap)) break;
-    }
-    ideals.forEach(o=>packs.set(o.size, o.base));
-  }
-
-  // Saída
-  const tb = document.querySelector("#outTable tbody");
-  tb.innerHTML = "";
-  let totCap=0, totPacks=0, totPairs=0;
-  rows.sort((a,b)=>a.size-b.size).forEach(r=>{
-    const pk = packs.get(r.size)||0;
-    const pr = pk * params().pack;
-    totCap += r.capPacks; totPacks+=pk; totPairs+=pr;
-    const coverageWeeks = r.weekNext>0 ? (r.onCurrBefore + pr)/r.weekNext : 0;
-    const covDays = (coverageWeeks*7).toFixed(1);
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${r.size}</td>
-      <td>${r.needEff.toFixed(1)}</td>
-      <td>${r.capPacks}</td>
-      <td><b>${pk}</b></td>
-      <td>${pr}</td>
-      <td>${r.skip?'<span class="pill">SIM</span>':'—'}</td>
-      <td>${covDays}</td>
-    `;
-    tb.appendChild(tr);
-  });
-  el("totCap").textContent = totCap;
-  el("totPacks").textContent = totPacks;
-  el("totPairs").textContent = totPairs;
-  el("limitSpan").textContent = params().limit;
-  el("leftSpan").textContent = Math.max(0, params().limit - totPairs);
-  el("summary").innerHTML = `Packs permitidos: <b>${Math.floor(params().limit/params().pack)}</b>. Sugeridos: <b>${totPacks}</b>. Pares: <b>${totPairs}</b>.`;
-}
-
-function downloadCSV(){
-  recalc();
-  const rows = [["Num","Packs","Pares"]];
-  document.querySelectorAll("#outTable tbody tr").forEach(tr=>{
-    const tds = tr.querySelectorAll("td");
-    rows.push([tds[0].innerText, tds[3].innerText, tds[4].innerText]);
-  });
-  const csv = rows.map(r=>r.join(",")).join("\n");
-  const blob = new Blob([csv], {type:"text/csv"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "Sugestao_Envio.csv";
-  a.click();
-}
-
-recalc();
-</script>
+  </script>
 </body>
 </html>
+
